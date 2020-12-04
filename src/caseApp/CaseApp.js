@@ -22,9 +22,9 @@ function CaseApp(props) {
   const [directions, setDirection] = useState()
   const [stops, setStops] = useState()
   const [stopTimes, setStopTimes] = useState()
-  const [selectedStop, setSelectedStop] = useState(params.stop || "default")
-  const [selectedDirections, setSelectedDirection] = useState(params.direction || "default")
-  const [selectedRoute, setSelectedRoute] = useState(params.route || "default")
+  const [selectedStop, setSelectedStop] = useState("default")
+  const [selectedDirections, setSelectedDirection] = useState("default")
+  const [selectedRoute, setSelectedRoute] = useState("default")
   const [showSearchResults, setShowSearchResults] = useState(false)
   const [httpError, setHttpError] = useState(false)
 
@@ -33,6 +33,13 @@ function CaseApp(props) {
 
 
   useEffect(() => {
+
+    setSelectedRoute(sanitizeString(params.route || "default"))
+    setSelectedDirection(sanitizeString(params.direction || "default") )
+    setSelectedStop(sanitizeString(params.stop || "default"))
+
+
+
     axios.get(`https://svc.metrotransit.org/nextripv2/routes`)
     .then(res => {
       setRoutes(res.data)
@@ -54,7 +61,6 @@ function CaseApp(props) {
             setShowSearchResults(true)
         })
     }
-
   }, [])
 
 
@@ -65,10 +71,11 @@ function CaseApp(props) {
   }, [location]);
   
   const handleUserSelectedNewRoute = (value) => {
-    setSelectedRoute(value.route_id)
-    axios.get(`https://svc.metrotransit.org/nextripv2/directions/${value.route_id}`)
+      const newRoute = sanitizeString(String(value.route_id))
+    setSelectedRoute(newRoute)
+    axios.get(`https://svc.metrotransit.org/nextripv2/directions/${newRoute}`)
     .then(res => {
-        routeProps.history.push(`/${value.route_id}`)
+        routeProps.history.push(`/${newRoute}`)
       setDirection(res.data)
 
         if (selectedDirections !== "default" || selectedStop !== "default") {
@@ -84,10 +91,11 @@ function CaseApp(props) {
   }
 
   const handleUserSelectedNewDirection = (value) => {
-    setSelectedDirection(value.direction_id)
-    axios.get(`https://svc.metrotransit.org/nextripv2/stops/${selectedRoute}/${value.direction_id}`)
+      const newDirection = sanitizeString(String(value.direction_id))
+    setSelectedDirection(newDirection)
+    axios.get(`https://svc.metrotransit.org/nextripv2/stops/${selectedRoute}/${newDirection}`)
     .then(res => {
-        routeProps.history.push(`/${selectedRoute}/${value.direction_id}`)
+        routeProps.history.push(`/${selectedRoute}/${newDirection}`)
       setStops(res.data)
 
       if (selectedStop !== "default") {
@@ -99,19 +107,21 @@ function CaseApp(props) {
   }
 
   const handleUserSelectedNewStop = (value) => {
-    setSelectedStop(value.place_code)
-    axios.get(`https://svc.metrotransit.org/nextripv2/${selectedRoute}/${selectedDirections}/${value.place_code}`)
+    const newStop = sanitizeString(value.place_code)
+    setSelectedStop(newStop)
+    axios.get(`https://svc.metrotransit.org/nextripv2/${selectedRoute}/${selectedDirections}/${sanitizeString(newStop)}`)
     .then(res => {
-        routeProps.history.push(`/${selectedRoute}/${selectedDirections}/${value.place_code}`)
+        routeProps.history.push(`/${selectedRoute}/${selectedDirections}/${newStop}`)
       setStopTimes(res.data)
       setShowSearchResults(true)
     })
   }
 
   const handleSearchByStop = (value ) => {
-    axios.get(`https://svc.metrotransit.org/nextripv2/${value}`)
+    const stopSearch = sanitizeString(value)
+    axios.get(`https://svc.metrotransit.org/nextripv2/${stopSearch}`)
     .then(res => {
-        routeProps.history.push(`/${value}`)
+        routeProps.history.push(`/${stopSearch}`)
         setStopTimes(res.data)
     }, (err) => {
         setHttpError(true)
@@ -145,14 +155,18 @@ function CaseApp(props) {
     }
   }
 
+  const sanitizeString = (str) => {
+    str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
+    return str.trim();
+  }
+
+
   return (
     <div className="App">
         <div className="searchTypeBtnContainer">
             <Button variant="outlined" color="primary" onClick={() => handleSearchTypeChange(true)}>Route</Button>
             <Button variant="outlined" color="primary" onClick={() => handleSearchTypeChange(false)}>Stop</Button>
         </div>
-
-
 
         <Search 
           routes={routes}
