@@ -5,6 +5,7 @@ import React from "react";
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import '../App.css';
+import { Button } from '@material-ui/core';
 
 import {
     useLocation
@@ -25,6 +26,8 @@ function CaseApp(props) {
   const [selectedDirections, setSelectedDirection] = useState(params.direction || "default")
   const [selectedRoute, setSelectedRoute] = useState(params.route || "default")
 
+
+  const [isRoute, setIsRoute] = useState(true)
 
 
   useEffect(() => {
@@ -87,9 +90,19 @@ function CaseApp(props) {
   }
 
 
+  const handleSearchTypeChange = (value) => {
+    setIsRoute(value)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
+        <div className="searchTypeBtnContainer">
+            <Button variant="outlined" color="primary" onClick={() => handleSearchTypeChange(true)}>Route</Button>
+            <Button variant="outlined" color="primary" onClick={() => handleSearchTypeChange(false)}>Stop</Button>
+        </div>
+
+
+
         <Search 
           routes={routes}
           selectedRoute={selectedRoute}
@@ -101,8 +114,9 @@ function CaseApp(props) {
           handleUserSelectedNewStop={handleUserSelectedNewStop}
           selectedStop={selectedStop}
           stopTimes={stopTimes}
+          isRoute={isRoute}
         />
-      </header>
+   
     </div>
   );
 }
