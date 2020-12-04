@@ -1,7 +1,7 @@
 import { Select, MenuItem, FormHelperText } from '@material-ui/core';
 
 function Search(props) {
-    const { selectedRoute, selectedDirection, selectedDirections, directions, stops, selectedStop } = props
+    const { selectedRoute, selectedDirection, selectedDirections, directions, stops, selectedStop, stopTimes } = props
     const handleNewSelection = (e) => {
         const routeNumber = e.target.value
         const routeObj = props.routes.find(item => item.route_id === routeNumber)
@@ -22,7 +22,7 @@ function Search(props) {
         props.handleUserSelectedNewStop(routeObj)
     }
 
-
+    console.log(stopTimes)
   return (
     <div className="App">
         <Select
@@ -78,6 +78,15 @@ function Search(props) {
               ))}
               <FormHelperText>Stops</FormHelperText>
           </Select>
+        </div>
+      )}
+
+      {stopTimes && (
+        <div>
+          {stopTimes.departures.map(item => (
+            <div>Route: {item.route_short_name} Dest: {item.description} Time: {item.departure_text}</div>
+          ))}
+
         </div>
       )}
 
