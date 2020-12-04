@@ -26,6 +26,7 @@ function CaseApp(props) {
   const [selectedDirections, setSelectedDirection] = useState(params.direction || "default")
   const [selectedRoute, setSelectedRoute] = useState(params.route || "default")
   const [showSearchResults, setShowSearchResults] = useState(false)
+  const [httpError, setHttpError] = useState(false)
 
 
   const [isRoute, setIsRoute] = useState(true)
@@ -111,7 +112,9 @@ function CaseApp(props) {
     axios.get(`https://svc.metrotransit.org/nextripv2/${value}`)
     .then(res => {
         routeProps.history.push(`/${value}`)
-      setStopTimes(res.data)
+        setStopTimes(res.data)
+    }, (err) => {
+        setHttpError(true)
     })
   }
 
@@ -120,22 +123,10 @@ function CaseApp(props) {
     setStopTimes(undefined)
 
     if (value) {
-        /*
-        const [routes, setRoutes] = useState([])
-        const [directions, setDirection] = useState()
-        const [stops, setStops] = useState()
-        const [stopTimes, setStopTimes] = useState()
-        const [selectedStop, setSelectedStop] = useState(params.stop || "default")
-        const [selectedDirections, setSelectedDirection] = useState(params.direction || "default")
-        const [selectedRoute, setSelectedRoute] = useState(params.route || "default")
-        const [showSearchResults, setShowSearchResults] = useState(false)
-        */
         setSelectedRoute("default")
         setSelectedStop("default")
         setStops(undefined)
         setDirection(undefined)
-
-
     }
 
     if (value &&         
@@ -178,6 +169,7 @@ function CaseApp(props) {
           handleSearchByStop={handleSearchByStop}
           isRoute={isRoute}
           showSearchResults={showSearchResults}
+          httpError={httpError}
         />
    
     </div>

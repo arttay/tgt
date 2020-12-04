@@ -5,7 +5,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import Listing from "../../Listing/Listing.js"
 
 function ByStop(props) {
-  const { handleSearchByStop, stopTimes, isRoute } = props
+  const { handleSearchByStop, stopTimes, isRoute, httpError } = props
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleSearchByStop(e.target.value)
@@ -30,8 +30,8 @@ function ByStop(props) {
         />
 
 
-      {stopTimes && !isRoute && (
-        <Listing data={stopTimes} />
+      {(stopTimes || httpError) && !isRoute && (
+        <Listing data={stopTimes} httpError={props.httpError} />
       )}
     </div>
   );

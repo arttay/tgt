@@ -82,7 +82,7 @@ function ByRoute(props) {
       selectedStop && 
       isRoute && (
         <div>
-          <Listing data={stopTimes} />
+          <Listing data={stopTimes} httpError={props.httpError} />
         </div>
       )}
 
