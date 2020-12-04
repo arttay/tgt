@@ -8,6 +8,7 @@ function Search(props) {
         props.setNewRoute(routeObj)
     }
 
+
     const handleNewDirectionSelection = (e) => {
         const directionNumber = e.target.value
         const routeObj = props.directions.find(item => item.direction_id === directionNumber)
@@ -22,7 +23,6 @@ function Search(props) {
         props.handleUserSelectedNewStop(routeObj)
     }
 
-    console.log(stopTimes)
   return (
     <div className="App">
         <Select

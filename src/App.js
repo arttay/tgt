@@ -18,11 +18,27 @@ import {
 
 function App() {
 
+return (
+  <Router>
+  <div>
+    <Switch>ds
+      <Route path="/:route?/:direction?/:stop?" render={routeProps => (
+        <CaseApp routeProps={routeProps}/>
+      )}>
+        
+      </Route>
+    </Switch>
+  </div>
+</Router>
+)
+
+/*
   return (
     <div className="App">
       <CaseApp />
     </div>
   );
+  */
 }
 
 export default App;
