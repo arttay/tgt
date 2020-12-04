@@ -8,8 +8,6 @@ function Search(props) {
         props.setNewRoute(routeObj)
     }
 
-    console.log(selectedStop)
-
 
     const handleNewDirectionSelection = (e) => {
         const directionNumber = e.target.value
@@ -34,13 +32,10 @@ function Search(props) {
           displayEmpty
           onChange={handleNewSelection}
         >
-            <MenuItem value="" disabled>
-            Placeholder
-          </MenuItem>
+            <MenuItem value="default" key="default" disabled>Select Route</MenuItem>
             {props.routes.map(item => (
                 <MenuItem value={item.route_id} key={item.route_id}>{item.route_label}</MenuItem>
             ))}
-            <FormHelperText>Placeholder</FormHelperText>
         </Select>
 
       {directions && selectedRoute && (
@@ -52,13 +47,12 @@ function Search(props) {
             displayEmpty
             onChange={handleNewDirectionSelection}
             >
-                <MenuItem value="" disabled>
-                Direction
+                <MenuItem value="default" disabled>
+                Select a Direction
             </MenuItem>
                 {props.directions.map(item => (
                     <MenuItem value={item.direction_id} key={item.direction_id}>{item.direction_name}</MenuItem>
                 ))}
-                <FormHelperText>Direction</FormHelperText>
             </Select>
           </div>
       )}
@@ -72,13 +66,12 @@ function Search(props) {
           displayEmpty
           onChange={handleNewStopSelection}
           >
-              <MenuItem value="" disabled>
-              Stops
+              <MenuItem value="default" disabled>
+              Select a Stop
           </MenuItem>
               {props.stops.map(item => (
                   <MenuItem value={item.place_code} key={item.place_code}>{item.description}</MenuItem>
               ))}
-              <FormHelperText>Stops</FormHelperText>
           </Select>
         </div>
       )}
@@ -86,7 +79,7 @@ function Search(props) {
       {stopTimes && selectedStop && (
         <div>
           {stopTimes.departures.map(item => (
-            <div>Route: {item.route_short_name} Dest: {item.description} Time: {item.departure_text}</div>
+            <div key={item.trip_id}>Route: {item.route_short_name} Dest: {item.description} Time: {item.departure_text}</div>
           ))}
 
         </div>

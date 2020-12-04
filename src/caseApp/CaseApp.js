@@ -21,9 +21,9 @@ function CaseApp(props) {
   const [directions, setDirection] = useState()
   const [stops, setStops] = useState()
   const [stopTimes, setStopTimes] = useState()
-  const [selectedStop, setSelectedStop] = useState(params.stop)
-  const [selectedDirections, setSelectedDirection] = useState(params.direction)
-  const [selectedRoute, setSelectedRoute] = useState(params.route)
+  const [selectedStop, setSelectedStop] = useState(params.stop || "default")
+  const [selectedDirections, setSelectedDirection] = useState(params.direction || "default")
+  const [selectedRoute, setSelectedRoute] = useState(params.route || "default")
 
 
 
@@ -32,13 +32,30 @@ function CaseApp(props) {
     .then(res => {
       setRoutes(res.data)
     })
+
+
+
+    if (
+        selectedStop && 
+        selectedStop !== "default" &&
+        selectedDirections && 
+        selectedDirections !== "default" &&
+        selectedRoute  && 
+        selectedRoute !== "default"
+    ) {
+        axios.get(`https://svc.metrotransit.org/nextripv2/${selectedRoute}/${selectedDirections}/${selectedStop}`)
+        .then(res => {
+            setStopTimes(res.data)
+        })
+    }
+
   }, [])
 
 
   useEffect(() => {
-    setSelectedStop(params.stop)
-    setSelectedDirection(params.direction)
-    setSelectedRoute(params.route)
+    setSelectedStop(params.stop || "default")
+    setSelectedDirection(params.direction || "default")
+    setSelectedRoute(params.route || "default")
   }, [location]);
   
   const handleUserSelectedNewRoute = (value) => {
