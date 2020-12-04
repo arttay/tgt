@@ -119,6 +119,25 @@ function CaseApp(props) {
     setIsRoute(value)
     setStopTimes(undefined)
 
+    if (value) {
+        /*
+        const [routes, setRoutes] = useState([])
+        const [directions, setDirection] = useState()
+        const [stops, setStops] = useState()
+        const [stopTimes, setStopTimes] = useState()
+        const [selectedStop, setSelectedStop] = useState(params.stop || "default")
+        const [selectedDirections, setSelectedDirection] = useState(params.direction || "default")
+        const [selectedRoute, setSelectedRoute] = useState(params.route || "default")
+        const [showSearchResults, setShowSearchResults] = useState(false)
+        */
+        setSelectedRoute("default")
+        setSelectedStop("default")
+        setStops(undefined)
+        setDirection(undefined)
+
+
+    }
+
     if (value &&         
         selectedStop && 
         selectedStop !== "default" &&
