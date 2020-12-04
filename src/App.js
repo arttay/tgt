@@ -1,8 +1,4 @@
-import logo from './logo.svg';
-import Search from './Search/Search.js'
-
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import React from "react";
 import './App.css';
 
 import CaseApp from "./caseApp/CaseApp.js"
@@ -11,7 +7,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  useLocation
 } from "react-router-dom";
 
 
@@ -21,7 +17,7 @@ function App() {
 return (
   <Router>
   <div>
-    <Switch>ds
+    <Switch>
       <Route path="/:route?/:direction?/:stop?" render={routeProps => (
         <CaseApp routeProps={routeProps}/>
       )}>

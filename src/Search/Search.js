@@ -8,6 +8,8 @@ function Search(props) {
         props.setNewRoute(routeObj)
     }
 
+    console.log(selectedStop)
+
 
     const handleNewDirectionSelection = (e) => {
         const directionNumber = e.target.value
@@ -41,7 +43,7 @@ function Search(props) {
             <FormHelperText>Placeholder</FormHelperText>
         </Select>
 
-      {directions && (
+      {directions && selectedRoute && (
           <div>
             <Select
             labelId="demo-simple-select-required-label"
@@ -61,7 +63,7 @@ function Search(props) {
           </div>
       )}
 
-      {stops && (
+      {stops && selectedDirections && (
           <div>
           <Select
           labelId="demo-simple-select-required-label"
@@ -81,7 +83,7 @@ function Search(props) {
         </div>
       )}
 
-      {stopTimes && (
+      {stopTimes && selectedStop && (
         <div>
           {stopTimes.departures.map(item => (
             <div>Route: {item.route_short_name} Dest: {item.description} Time: {item.departure_text}</div>
