@@ -25,6 +25,7 @@ function CaseApp(props) {
   const [selectedStop, setSelectedStop] = useState(params.stop || "default")
   const [selectedDirections, setSelectedDirection] = useState(params.direction || "default")
   const [selectedRoute, setSelectedRoute] = useState(params.route || "default")
+  const [showSearchResults, setShowSearchResults] = useState(false)
 
 
   const [isRoute, setIsRoute] = useState(true)
@@ -49,6 +50,7 @@ function CaseApp(props) {
         axios.get(`https://svc.metrotransit.org/nextripv2/${selectedRoute}/${selectedDirections}/${selectedStop}`)
         .then(res => {
             setStopTimes(res.data)
+            setShowSearchResults(true)
         })
     }
 
@@ -67,6 +69,16 @@ function CaseApp(props) {
     .then(res => {
         routeProps.history.push(`/${value.route_id}`)
       setDirection(res.data)
+
+        if (selectedDirections !== "default" || selectedStop !== "default") {
+            setSelectedStop("default")
+            setSelectedDirection("default")
+            setStops(undefined)
+            setStopTimes(undefined)
+            setShowSearchResults(true)
+        }
+
+
     })
   }
 
@@ -76,9 +88,14 @@ function CaseApp(props) {
     .then(res => {
         routeProps.history.push(`/${selectedRoute}/${value.direction_id}`)
       setStops(res.data)
+
+      if (selectedStop !== "default") {
+        setSelectedStop("default")
+        setStopTimes(undefined)
+        setShowSearchResults(true)
+      }
     })
   }
-
 
   const handleUserSelectedNewStop = (value) => {
     setSelectedStop(value.place_code)
@@ -86,12 +103,36 @@ function CaseApp(props) {
     .then(res => {
         routeProps.history.push(`/${selectedRoute}/${selectedDirections}/${value.place_code}`)
       setStopTimes(res.data)
+      setShowSearchResults(true)
     })
   }
 
+  const handleSearchByStop = (value ) => {
+    axios.get(`https://svc.metrotransit.org/nextripv2/${value}`)
+    .then(res => {
+        routeProps.history.push(`/${value}`)
+      setStopTimes(res.data)
+    })
+  }
 
   const handleSearchTypeChange = (value) => {
     setIsRoute(value)
+    setStopTimes(undefined)
+
+    if (value &&         
+        selectedStop && 
+        selectedStop !== "default" &&
+        selectedDirections && 
+        selectedDirections !== "default" &&
+        selectedRoute  && 
+        selectedRoute !== "default"
+    ) {
+        axios.get(`https://svc.metrotransit.org/nextripv2/${selectedRoute}/${selectedDirections}/${selectedStop}`)
+        .then(res => {
+            setStopTimes(res.data)
+            setShowSearchResults(true)
+        })
+    }
   }
 
   return (
@@ -115,6 +156,9 @@ function CaseApp(props) {
           selectedStop={selectedStop}
           stopTimes={stopTimes}
           isRoute={isRoute}
+          handleSearchByStop={handleSearchByStop}
+          isRoute={isRoute}
+          showSearchResults={showSearchResults}
         />
    
     </div>
