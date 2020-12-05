@@ -21,3 +21,6 @@ To build a minified and package for production, run the `npm run build` command;
 ## Testing
 For Target folks, before installing Cypress, see https://target-tts.slack.com/archives/CLYBHBTHV/p1603904439133100
 
+
+To run tests, run `npm run cy-run` or `yarn cy-run`.  This will open the Cypress dashboard, from there you can run each suite of tests or all tests.
+
