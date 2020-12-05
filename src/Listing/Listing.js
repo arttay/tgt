@@ -13,7 +13,7 @@ function Listing(props) {
 
     const renderTable = () => {
         return (
-            <TableContainer >
+            <TableContainer id="tgt-search-listings">
             <Table  aria-label="simple table">
                 <TableHead>
                 <TableRow>

@@ -29,14 +29,14 @@ function ByRoute(props) {
     <div className="App">
         <Select
           labelId="demo-simple-select-required-label"
-          id="demo-simple-select-required"
+          id="tgt-route-select"
           value={props.selectedRoute}
           displayEmpty
           onChange={handleNewSelection}
         >
             <MenuItem value="default" key="default" disabled>Select Route</MenuItem>
             {props.routes.map(item => (
-                <MenuItem value={item.route_id} key={item.route_id}>{item.route_label}</MenuItem>
+                <MenuItem className={`tgt-route-${item.route_id}`} value={item.route_id} key={item.route_id}>{item.route_label}</MenuItem>
             ))}
         </Select>
 
@@ -44,7 +44,7 @@ function ByRoute(props) {
           <div>
             <Select
             labelId="demo-simple-select-required-label"
-            id="demo-simple-select-required"
+            id="tgt-direction-select"
             value={selectedDirections}
             displayEmpty
             onChange={handleNewDirectionSelection}
@@ -53,7 +53,7 @@ function ByRoute(props) {
                 Select a Direction
             </MenuItem>
                 {props.directions.map(item => (
-                    <MenuItem value={item.direction_id} key={item.direction_id}>{item.direction_name}</MenuItem>
+                    <MenuItem className={`tgt-direction-${item.direction_id}`} value={item.direction_id} key={item.direction_id}>{item.direction_name}</MenuItem>
                 ))}
             </Select>
           </div>
@@ -63,7 +63,7 @@ function ByRoute(props) {
           <div>
           <Select
           labelId="demo-simple-select-required-label"
-          id="demo-simple-select-required"
+          id="tgt-stop-select"
           value={selectedStop}
           displayEmpty
           onChange={handleNewStopSelection}
@@ -72,7 +72,7 @@ function ByRoute(props) {
               Select a Stop
           </MenuItem>
               {props.stops.map(item => (
-                  <MenuItem value={item.place_code} key={item.place_code}>{item.description}</MenuItem>
+                  <MenuItem className={`tgt-stop-${item.place_code}`} value={item.place_code} key={item.place_code}>{item.description}</MenuItem>
               ))}
           </Select>
         </div>

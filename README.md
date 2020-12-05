@@ -17,3 +17,7 @@ To start the server, run the `npm run start` command. Or if you have `yarn` run 
 
 ## Building 
 To build a minified and package for production, run the `npm run build` command; `yarn build` 
+
+## Testing
+For Target folks, before installing Cypress, see https://target-tts.slack.com/archives/CLYBHBTHV/p1603904439133100
+

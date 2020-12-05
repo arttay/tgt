@@ -164,8 +164,8 @@ function CaseApp(props) {
   return (
     <div className="App">
         <div className="searchTypeBtnContainer">
-            <Button variant="outlined" color="primary" onClick={() => handleSearchTypeChange(true)}>Route</Button>
-            <Button variant="outlined" color="primary" onClick={() => handleSearchTypeChange(false)}>Stop</Button>
+            <Button id="tgt-search-route-btn" variant="outlined" color="primary" onClick={() => handleSearchTypeChange(true)}>Route</Button>
+            <Button id="tgt-search-stop-btn" variant="outlined" color="primary" onClick={() => handleSearchTypeChange(false)}>Stop</Button>
         </div>
 
         <Search 
