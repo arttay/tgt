@@ -1,9 +1,9 @@
-import { Select, MenuItem, FormHelperText } from '@material-ui/core';
+import { Select, MenuItem } from '@material-ui/core';
 
 import Listing from "../../Listing/Listing.js"
 
 function ByRoute(props) {
-    const { selectedRoute, selectedDirection, selectedDirections, directions, stops, selectedStop, stopTimes, isRoute, showSearchResults } = props
+    const { selectedRoute, selectedDirections, directions, stops, selectedStop, stopTimes, isRoute } = props
     const handleNewSelection = (e) => {
         const routeNumber = e.target.value
         const routeObj = props.routes.find(item => item.route_id === routeNumber)

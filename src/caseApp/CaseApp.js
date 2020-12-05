@@ -1,4 +1,3 @@
-import logo from '../logo.svg';
 import Search from '../Search/Search.js'
 import React from "react";
 
@@ -27,10 +26,7 @@ function CaseApp(props) {
   const [selectedRoute, setSelectedRoute] = useState("default")
   const [showSearchResults, setShowSearchResults] = useState(false)
   const [httpError, setHttpError] = useState(false)
-
-
   const [isRoute, setIsRoute] = useState(true)
-
 
   useEffect(() => {
 
@@ -38,14 +34,10 @@ function CaseApp(props) {
     setSelectedDirection(sanitizeString(params.direction || "default") )
     setSelectedStop(sanitizeString(params.stop || "default"))
 
-
-
     axios.get(`https://svc.metrotransit.org/nextripv2/routes`)
     .then(res => {
       setRoutes(res.data)
     })
-
-
 
     if (
         selectedStop && 
@@ -63,13 +55,12 @@ function CaseApp(props) {
     }
   }, [])
 
-
   useEffect(() => {
     setSelectedStop(params.stop || "default")
     setSelectedDirection(params.direction || "default")
     setSelectedRoute(params.route || "default")
   }, [location]);
-  
+
   const handleUserSelectedNewRoute = (value) => {
       const newRoute = sanitizeString(String(value.route_id))
     setSelectedRoute(newRoute)
@@ -181,7 +172,6 @@ function CaseApp(props) {
           stopTimes={stopTimes}
           isRoute={isRoute}
           handleSearchByStop={handleSearchByStop}
-          isRoute={isRoute}
           showSearchResults={showSearchResults}
           httpError={httpError}
         />

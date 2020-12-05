@@ -6,8 +6,7 @@ import CaseApp from "./caseApp/CaseApp.js"
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  useLocation
+  Route
 } from "react-router-dom";
 
 
@@ -27,14 +26,6 @@ return (
   </div>
 </Router>
 )
-
-/*
-  return (
-    <div className="App">
-      <CaseApp />
-    </div>
-  );
-  */
 }
 
 export default App;
