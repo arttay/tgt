@@ -17,6 +17,7 @@ function ByStop(props) {
         <TextField
           label="Outlined"
           variant="outlined"
+          id='tgt-stop-search-input'
           onKeyDown={handleKeyDown}
           InputProps={{
             endAdornment: (
