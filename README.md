@@ -31,7 +31,7 @@ To run tests, run `npm run cy-run` or `yarn cy-run`.  This will open the Cypress
 1. While its not stated in the doc, I need to focus on
     1. Accessibility
     2. Security
-2. Some of the API documentation is wrong**
+2. Some of the API documentation is wrong
 3. The application, at minimum, will need to work in the most recent version of the following
 	4. Chrome
 	5. IE/Edge
