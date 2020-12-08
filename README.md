@@ -6,7 +6,7 @@
 This will install Node.js and the NPM package manager
 
 [Yarn](https://yarnpkg.com/getting-started/install)
-Whiole not required, it will make operations easier 
+While not required, it will make operations easier 
 
 ## Dependencies
 After Cloning and cd'ing into the directory, run `npm install` to install all dependencies. If you installed `yarn`, run `yarn` instead.
