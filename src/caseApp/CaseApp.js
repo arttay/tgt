@@ -8,6 +8,8 @@ import { Button } from '@material-ui/core';
 
 import Listing from "../Listing/Listing.js"
 
+import { sanitizeString } from "../Util/Util"
+
 import {
     useLocation
   } from "react-router-dom";
@@ -23,18 +25,14 @@ function CaseApp(props) {
   const [directions, setDirection] = useState()
   const [stops, setStops] = useState()
   const [stopTimes, setStopTimes] = useState()
-  const [selectedStop, setSelectedStop] = useState("default")
-  const [selectedDirections, setSelectedDirection] = useState("default")
-  const [selectedRoute, setSelectedRoute] = useState("default")
+  const [selectedStop, setSelectedStop] = useState(sanitizeString(params.stop || "default"))
+  const [selectedDirections, setSelectedDirection] = useState(sanitizeString(params.direction || "default"))
+  const [selectedRoute, setSelectedRoute] = useState(sanitizeString(params.route || "default"))
   const [showSearchResults, setShowSearchResults] = useState(false)
   const [httpError, setHttpError] = useState(false)
   const [isRoute, setIsRoute] = useState(true)
 
   useEffect(() => {
-
-    setSelectedRoute(sanitizeString(params.route || "default"))
-    setSelectedDirection(sanitizeString(params.direction || "default") )
-    setSelectedStop(sanitizeString(params.stop || "default"))
 
     axios.get(`https://svc.metrotransit.org/nextripv2/routes`)
     .then(res => {
@@ -42,25 +40,25 @@ function CaseApp(props) {
     })
 
     if (
-        selectedStop && 
         selectedStop !== "default" &&
-        selectedDirections && 
         selectedDirections !== "default" &&
-        selectedRoute  && 
         selectedRoute !== "default"
     ) {
         axios.get(`https://svc.metrotransit.org/nextripv2/${selectedRoute}/${selectedDirections}/${selectedStop}`)
         .then(res => {
+          console.log("hello!")
             setStopTimes(res.data)
             setShowSearchResults(true)
         })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     setSelectedStop(params.stop || "default")
     setSelectedDirection(params.direction || "default")
     setSelectedRoute(params.route || "default")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   const handleUserSelectedNewRoute = (value) => {
@@ -78,8 +76,6 @@ function CaseApp(props) {
             setStopTimes(undefined)
             setShowSearchResults(true)
         }
-
-
     })
   }
 
@@ -125,20 +121,16 @@ function CaseApp(props) {
   const handleSearchTypeChange = (value) => {
     setIsRoute(value)
     setStopTimes(undefined)
+    setShowSearchResults(false)
 
     if (value) {
-        setSelectedRoute("default")
-        setSelectedStop("default")
-        setStops(undefined)
-        setDirection(undefined)
+        setSelectedRoute(sanitizeString(params.route || "default"))
+        setSelectedStop(sanitizeString(params.stop || "default"))
     }
 
     if (value &&         
-        selectedStop && 
         selectedStop !== "default" &&
-        selectedDirections && 
         selectedDirections !== "default" &&
-        selectedRoute  && 
         selectedRoute !== "default"
     ) {
         axios.get(`https://svc.metrotransit.org/nextripv2/${selectedRoute}/${selectedDirections}/${selectedStop}`)
@@ -149,9 +141,7 @@ function CaseApp(props) {
     }
   }
 
-  const sanitizeString = (str) => {
-    return str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"").trim()
-  }
+
 
 
   return (

@@ -1,9 +1,9 @@
 import { Select, MenuItem } from '@material-ui/core';
 
-import Listing from "../../Listing/Listing.js"
-
 function ByRoute(props) {
-    const { selectedRoute, selectedDirections, directions, stops, selectedStop, stopTimes, isRoute } = props
+    const { selectedRoute, selectedDirections, directions, stops, selectedStop } = props
+    const routeSelectValue = stops || directions ? props.selectedRoute : "default"
+
     const handleNewSelection = (e) => {
         const routeNumber = e.target.value
         const routeObj = props.routes.find(item => item.route_id === routeNumber)
@@ -24,13 +24,13 @@ function ByRoute(props) {
 
         props.handleUserSelectedNewStop(routeObj)
     }
-
+    console.log(props)
   return (
     <div className="App">
         <Select
           labelId="demo-simple-select-required-label"
           id="tgt-route-select"
-          value={props.selectedRoute}
+          value={routeSelectValue}
           displayEmpty
           onChange={handleNewSelection}
         >

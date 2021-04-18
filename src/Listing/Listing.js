@@ -37,7 +37,6 @@ function Listing(props) {
     }
 
     const renderErrorMessage = () => {
-        console.log(httpError)
         return httpError ? (
             <div id="tgt-search-error-state">There was an error fetching the data</div>
         ) : (
