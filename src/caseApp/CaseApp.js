@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react';
 import '../App.css';
 import { Button } from '@material-ui/core';
 
+import Listing from "../Listing/Listing.js"
+
 import {
     useLocation
   } from "react-router-dom";
@@ -175,6 +177,12 @@ function CaseApp(props) {
           showSearchResults={showSearchResults}
           httpError={httpError}
         />
+
+        {showSearchResults && (
+          <>
+          <Listing data={stopTimes} httpError={httpError} />
+          </>
+        )}
    
     </div>
   );

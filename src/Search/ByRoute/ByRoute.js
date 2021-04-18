@@ -78,13 +78,6 @@ function ByRoute(props) {
         </div>
       )}
 
-      {stopTimes && 
-      selectedStop && 
-      isRoute && (
-        <div>
-          <Listing data={stopTimes} httpError={props.httpError} />
-        </div>
-      )}
 
     </div>
   );

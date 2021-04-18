@@ -4,12 +4,21 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import Listing from "../../Listing/Listing.js"
 
+import React, { useRef  } from "react";
+
+
 function ByStop(props) {
   const { handleSearchByStop, stopTimes, isRoute, httpError } = props
+  const searchTextValue = useRef()
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleSearchByStop(e.target.value)
    }
+  }
+
+  const handleIconClick = () => {
+    handleSearchByStop(searchTextValue.current.value)
   }
 
   return (
@@ -18,11 +27,12 @@ function ByStop(props) {
           label="Outlined"
           variant="outlined"
           id='tgt-stop-search-input'
+          inputRef={searchTextValue}
           onKeyDown={handleKeyDown}
           InputProps={{
             endAdornment: (
               <InputAdornment>
-                <IconButton>
+                <IconButton onClick={handleIconClick}>
                   <SearchIcon />
                 </IconButton>
               </InputAdornment>
