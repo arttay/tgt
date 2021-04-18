@@ -115,6 +115,7 @@ function CaseApp(props) {
     axios.get(`https://svc.metrotransit.org/nextripv2/${stopSearch}`)
     .then(res => {
         routeProps.history.push(`/${stopSearch}`)
+        setShowSearchResults(true)
         setStopTimes(res.data)
     }, (err) => {
         setHttpError(true)
@@ -149,16 +150,15 @@ function CaseApp(props) {
   }
 
   const sanitizeString = (str) => {
-    str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
-    return str.trim();
+    return str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"").trim()
   }
 
 
   return (
     <div className="App">
         <div className="searchTypeBtnContainer">
-            <Button id="tgt-search-route-btn" variant="outlined" color="primary" onClick={() => handleSearchTypeChange(true)}>Route</Button>
-            <Button id="tgt-search-stop-btn" variant="outlined" color="primary" onClick={() => handleSearchTypeChange(false)}>Stop</Button>
+            <Button id="tgt-search-route-btn" variant="outlined" color="primary" onClick={() => handleSearchTypeChange(true)} data-cy="byRoute">Route</Button>
+            <Button id="tgt-search-stop-btn" variant="outlined" color="primary" onClick={() => handleSearchTypeChange(false)} data-cy="byStop">Stop</Button>
         </div>
 
         <Search 
@@ -174,8 +174,6 @@ function CaseApp(props) {
           stopTimes={stopTimes}
           isRoute={isRoute}
           handleSearchByStop={handleSearchByStop}
-          showSearchResults={showSearchResults}
-          httpError={httpError}
         />
 
         {showSearchResults && (
