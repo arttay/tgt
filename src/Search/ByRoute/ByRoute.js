@@ -24,7 +24,6 @@ function ByRoute(props) {
 
         props.handleUserSelectedNewStop(routeObj)
     }
-    console.log(props)
   return (
     <div className="App">
         <Select

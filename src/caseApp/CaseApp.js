@@ -46,7 +46,6 @@ function CaseApp(props) {
     ) {
         axios.get(`https://svc.metrotransit.org/nextripv2/${selectedRoute}/${selectedDirections}/${selectedStop}`)
         .then(res => {
-          console.log("hello!")
             setStopTimes(res.data)
             setShowSearchResults(true)
         })
