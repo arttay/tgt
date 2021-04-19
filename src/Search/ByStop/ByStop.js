@@ -28,6 +28,7 @@ function ByStop(props) {
           id='tgt-stop-search-input'
           inputRef={searchTextValue}
           onKeyDown={handleKeyDown}
+          data-cy="stopNumberInput"
           InputProps={{
             endAdornment: (
               <InputAdornment>

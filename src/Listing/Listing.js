@@ -13,8 +13,8 @@ function Listing(props) {
 
     const renderTable = () => {
         return (
-            <TableContainer id="tgt-search-listings">
-            <Table  aria-label="simple table">
+            <TableContainer id="tgt-search-listings" data-cy="searchListing">
+            <Table aria-label="simple table">
                 <TableHead>
                 <TableRow>
                     <TableCell>Route</TableCell>
@@ -38,9 +38,9 @@ function Listing(props) {
 
     const renderErrorMessage = () => {
         return httpError ? (
-            <div id="tgt-search-error-state">There was an error fetching the data</div>
+            <div id="tgt-search-error-state" data-cy="errorState">There was an error fetching the data</div>
         ) : (
-            <div id="tgt-search-no-results">No departures at this time</div>
+            <div id="tgt-search-no-results" data-cy="noResults">No departures at this time</div>
         )
     }
 

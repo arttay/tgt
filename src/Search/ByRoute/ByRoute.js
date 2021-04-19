@@ -28,32 +28,32 @@ function ByRoute(props) {
   return (
     <div className="App">
         <Select
-          labelId="demo-simple-select-required-label"
           id="tgt-route-select"
           value={routeSelectValue}
           displayEmpty
           onChange={handleNewSelection}
+          data-cy="routeSelect"
         >
             <MenuItem value="default" key="default" disabled>Select Route</MenuItem>
-            {props.routes.map(item => (
-                <MenuItem className={`tgt-route-${item.route_id}`} value={item.route_id} key={item.route_id}>{item.route_label}</MenuItem>
+            {props.routes.map((item, key) => (
+                <MenuItem data-cy={`route-${key}`} className={`tgt-route-${item.route_id}`} value={item.route_id} key={item.route_id}>{item.route_label}</MenuItem>
             ))}
         </Select>
 
       {directions && selectedRoute && (
           <div>
             <Select
-            labelId="demo-simple-select-required-label"
             id="tgt-direction-select"
             value={selectedDirections}
             displayEmpty
             onChange={handleNewDirectionSelection}
+            data-cy="directionSelect"
             >
                 <MenuItem value="default" disabled>
                 Select a Direction
             </MenuItem>
-                {props.directions.map(item => (
-                    <MenuItem className={`tgt-direction-${item.direction_id}`} value={item.direction_id} key={item.direction_id}>{item.direction_name}</MenuItem>
+                {props.directions.map((item, key) => (
+                    <MenuItem data-cy={`direction-${key}`} className={`tgt-direction-${item.direction_id}`} value={item.direction_id} key={item.direction_id}>{item.direction_name}</MenuItem>
                 ))}
             </Select>
           </div>
@@ -67,12 +67,13 @@ function ByRoute(props) {
           value={selectedStop}
           displayEmpty
           onChange={handleNewStopSelection}
+          data-cy="stopSelect"
           >
               <MenuItem value="default" disabled>
               Select a Stop
           </MenuItem>
-              {props.stops.map(item => (
-                  <MenuItem className={`tgt-stop-${item.place_code}`} value={item.place_code} key={item.place_code}>{item.description}</MenuItem>
+              {props.stops.map((item, key) => (
+                  <MenuItem data-cy={`stop-${key}`} className={`tgt-stop-${item.place_code}`} value={item.place_code} key={item.place_code}>{item.description}</MenuItem>
               ))}
           </Select>
         </div>

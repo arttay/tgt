@@ -30,14 +30,15 @@ Cypress.Commands.add("fullSelection", () => {
 
     // Select Route
     cy.get("#tgt-route-select").click()
-    cy.get(".tgt-route-2").click()
+    cy.get('[data-cy=route-0]').click()
 
 
     // Select Direction
     cy.get("#tgt-direction-select").click()
-    cy.get(".tgt-direction-0").click()
+    cy.get('[data-cy=direction-0]').click()
+    
 
     // Select a stop
     cy.get("#tgt-stop-select").click()
-    cy.get(".tgt-stop-FRHI").click()
+    cy.get('[data-cy=stop-0]').click()
  })
