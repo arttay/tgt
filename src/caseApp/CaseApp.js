@@ -114,6 +114,7 @@ function CaseApp(props) {
         setShowSearchResults(true)
         setStopTimes(res.data)
     }, (err) => {
+      setShowSearchResults(true)
         setHttpError(true)
     })
   }

@@ -1,21 +1,20 @@
 describe('Search by Stop', () => {
     const BASE_URL = "localhost:3000/"
   
-    
     it("Basic search by Stop", () => {
+        const searchStopNumber = 74
         cy.server()
         cy.visit(BASE_URL)
+        cy.intercept('GET', `https://svc.metrotransit.org/nextripv2/${searchStopNumber}`).as('getStopNumber')
 
         cy.get("#tgt-search-stop-btn").click()
 
-        cy.get("#tgt-stop-search-input").type(74).type("{enter}")
+        cy.get("#tgt-stop-search-input").type(searchStopNumber).type("{enter}")
 
-        // I dont like it either...gives times for code that adds to url to complete.
-        // Waiting for http request was too fast =/
-        cy.wait(20)
+        cy.wait("@getStopNumber")
 
         cy.url().then(url => {
-            expect(url).to.equal(`http://${BASE_URL}74`)
+            expect(url).to.equal(`http://${BASE_URL}${searchStopNumber}`)
             cy.get("#tgt-search-listings").should("exist")
 
         });
@@ -24,16 +23,16 @@ describe('Search by Stop', () => {
     })
     
     it("Basic search by Stop", () => {
+        const searchStopNumber = "dgh"
         cy.server()
         cy.visit(BASE_URL)
+        cy.intercept('GET', `https://svc.metrotransit.org/nextripv2/${searchStopNumber}`).as('getStopNumber')
 
         cy.get("#tgt-search-stop-btn").click()
 
-        cy.get("#tgt-stop-search-input").type("dgh").type("{enter}")
+        cy.get("#tgt-stop-search-input").type(searchStopNumber).type("{enter}")
 
-        // I dont like it either...gives times for code that adds to url to complete.
-        // Waiting for http request was too fast =/
-        cy.wait(20)
+        cy.wait("@getStopNumber")
 
         cy.url().then(url => {
             expect(url).to.equal(`http://${BASE_URL}`)

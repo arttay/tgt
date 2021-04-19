@@ -73,9 +73,9 @@ describe('Search by Route', () => {
   cy.get("#tgt-search-stop-btn").click()
   cy.get("#tgt-search-route-btn").click()
 
-  cy.get("#tgt-stop-select").should("not.exist")
-  cy.get("#tgt-direction-select").should("not.exist")
-  cy.get("#tgt-route-select").contains("Select Route")
+  cy.get("#tgt-stop-select").should("exist")
+  cy.get("#tgt-direction-select").should("exist")
+  cy.get("#tgt-route-select").should("exist")
  })
 
 
